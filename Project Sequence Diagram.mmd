@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant U as Kullanıcı
+    participant APP as FinTrack Uygulaması
+    participant DB as Veritabanı (SQLite)
+
+    Note over U, DB: Yeni Hedef Ekleme
+    U->>APP: Hedef miktarını ve tarihini girer
+    APP->>APP: Advisor hesaplama yapar
+    APP->>DB: Hedefi kaydet
+    DB-->>APP: Başarılı
+    APP-->>U: "Hedef Oluşturuldu" mesajı
+
+    Note over U, DB: Harcama Girme
+    U->>APP: Harcama tutarı ve kategorisi girer
+    APP->>DB: Harcamayı tabloya ekle
+    DB-->>APP: Kayıt tamam
+    APP-->>U: Güncel tabloyu göster
+
+    Note over U, DB: Raporları Görüntüleme
+    U->>APP: Raporlar sayfasına tıklar
+    APP->>DB: Verileri çek
+    DB-->>APP: Hedefler ve Harcamalar
+    APP->>APP: Grafikleri çiz (Plotly)
+    APP-->>U: Dashboard'u göster
